@@ -1,12 +1,13 @@
 # This code is for the server 
 # Lets import the libraries
 import socket, cv2, pickle, struct, imutils, math
+import datetime
 
-# Socket Create
+# Socket Create 
 max_length = 65000 
 server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 host_name  = socket.gethostname()
-host_ip = "172.17.155.126"   #socket.gethostbyname(host_name)
+host_ip = "192.168.8.102"   #socket.gethostbyname(host_name)
 print('HOST IP:',host_ip)
 port = 8080
 socket_address = (host_ip,port)
@@ -28,11 +29,11 @@ while True:
         while(vid.isOpened()):
             img,frame = vid.read()
             frame = imutils.resize(frame,width=320)
-            #frame = imutils.resize(frame, (512, 512))
+            #frame = cv2.resize(frame, (512, 512))
 
             # grab the current timestamp and draw it on the frame
             timestamp = datetime.datetime.now()
-            cv2.putText(frame, 'transmitter timer: '+timestamp.strftime(
+            cv2.putText(frame, 'TX timer: '+timestamp.strftime(
                 "%I:%M:%S.%f"), (10, frame.shape[0] - 10),    #"%A %d %B %Y %I:%M:%S%f"
             cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
             
@@ -51,6 +52,11 @@ while True:
             left = 0
             right = max_length 
             
+            cv2.imshow('TRANSMITTING VIDEO',frame)
+            key = cv2.waitKey(1) & 0xFF
+            if key ==ord('q'):
+                client_socket.close()
+
             for i in range(num_of_packs):
                 print("left:", left)
                 print("right:", right)
@@ -63,9 +69,4 @@ while True:
                 client_socket.sendall(message)
             
             fr_no +=1
-            
-            cv2.imshow('TRANSMITTING VIDEO',frame)
-            key = cv2.waitKey(1) & 0xFF
-            if key ==ord('q'):
-                client_socket.close()
                 
