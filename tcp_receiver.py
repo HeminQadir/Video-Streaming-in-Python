@@ -4,8 +4,8 @@ import datetime
 
 # create socket
 client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-host_ip = '172.17.142.46' # paste your server ip address here
-port = 8080
+host_ip = '10.24.128.2' # paste your server ip address here
+port = 8081
 client_socket.connect((host_ip,port)) # a tuple
 data = b""
 payload_size = struct.calcsize("Q")
