@@ -40,6 +40,11 @@ while True:
             cv2.putText(frame, 'frame: '+str(fr_no), (10, frame.shape[0] - 40),    
             cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
             
+            cv2.imshow('TRANSMITTING VIDEO',frame)
+            key = cv2.waitKey(1) & 0xFF
+            if key ==ord('q'):
+                client_socket.close()
+                
             a = pickle.dumps(frame)
             message = struct.pack("Q",len(a))+a
             
@@ -52,11 +57,6 @@ while True:
             left = 0
             right = max_length 
             
-            cv2.imshow('TRANSMITTING VIDEO',frame)
-            key = cv2.waitKey(1) & 0xFF
-            if key ==ord('q'):
-                client_socket.close()
-
             for i in range(num_of_packs):
                 print("left:", left)
                 print("right:", right)
@@ -66,7 +66,7 @@ while True:
                 left = right
                 right += max_length
          
-                client_socket.sendall(message)
+                client_socket.sendall(data)
             
             fr_no +=1
                 

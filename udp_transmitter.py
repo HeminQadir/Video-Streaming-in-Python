@@ -40,6 +40,7 @@ while ret:
         buffer_size = len(buffer)
 
         num_of_packs = 1
+        
         if buffer_size > max_length:
             num_of_packs = math.ceil(buffer_size/max_length)
 

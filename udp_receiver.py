@@ -3,7 +3,6 @@ import socket
 import pickle
 import numpy as np
 
-
 host_name  = socket.gethostname()
 host_ip = '172.17.155.126' #socket.gethostbyname(host_name)   # This is the destination, so it has to pick up its own IP. if not change it manually
 print('HOST IP:',host_ip)

@@ -26,7 +26,7 @@ while True:
     frame = pickle.loads(frame_data)
     
     timestamp = datetime.datetime.now()
-    cv2.putText(frame, 'receiver timer: '+timestamp.strftime("%I:%M:%S.%f"), (10, frame.shape[0] - 70),
+    cv2.putText(frame, 'RX timer: '+timestamp.strftime("%I:%M:%S.%f"), (10, frame.shape[0] - 70),
         cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
     
     cv2.imshow("RECEIVING VIDEO",frame)
